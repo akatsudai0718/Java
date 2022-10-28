@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="spring boot exsamplw (todo)">
+	<title>Twitter</title>
+	<script src="webjars/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/twitter.css" />
+	<link rel="stylesheet" href="webjars/bootstrap/5.0.2/css/bootstrap.min.css" />
+	<script src="webjars/bootstrap/5.0.2/js/bootstrap.min.js"></script>
+	<script src="https://kit.fontawesome.com/1aeac29aff.js" crossorigin="anonymous"></script>
+</head>
+<body>
+	<div id="container">
+		<div class="row">
+			<!--  1200ピクセル以上で表示-->
+			<aside id="sub" class="col-3 d-none d-xl-block">
+				<div class="box overflow-auto list-group-flush">
+<!-- 				<div class="footer position-reletive"> -->
+					<div class="list-group-item twitter-button">
+						<button type="button" class="btn btn-outline-primary btn-lg rounded-pill"><i class="fa-brands fa-twitter"></i></button>
+					</div>
+					<div class="list-group-item sub-buttons btn-group-vertical">
+						<button type="button" class="btn btn-outline-secondary btn-lg rounded-pill text-nowrap"><i class="fa-sharp fa-solid fa-house"></i>　Home</button>
+						<button type="button" class="btn btn-outline-secondary btn-lg rounded-pill text-nowrap"><i class="fa-sharp fa-solid fa-bars"></i>　Explore</button>
+						<button type="button" class="btn btn-outline-secondary btn-lg rounded-pill text-nowrap"><i class="fa-sharp fa-solid fa-bell"></i>　Notifications</button>
+						<button type="button" class="btn btn-outline-secondary btn-lg rounded-pill text-nowrap"><i class="fa-sharp fa-solid fa-envelope"></i>　Messages</button>
+						<button type="button" class="btn btn-outline-secondary btn-lg rounded-pill text-nowrap"><i class="fa-sharp fa-solid fa-bookmark"></i>　Bookmarks</button>
+						<button type="button" class="btn btn-outline-secondary btn-lg rounded-pill text-nowrap"><i class="fa-sharp fa-solid fa-table-list"></i>　Lists</button>
+						<button type="button" class="btn btn-outline-secondary btn-lg rounded-pill text-nowrap"><i class="fa-sharp fa-solid fa-user"></i>　Profile</button>
+						<button type="button" class="btn btn-outline-secondary btn-lg rounded-pill text-nowrap"><i class="fa-sharp fa-solid fa-plus"></i>　More</button>
+					</div>
+					<div class="list-group-item">
+						<div class="test-margin1">
+							<button type="button" class="btn btn-primary btn-lg rounded-pill text-nowrap">Tweet</button>
+						</div>
+					</div>
+					<div class="box2">
+						<button type="button" class="btn btn-outline-secondary btn-lg rounded-pill text-nowrap"><i class="fa-solid fa-person"></i>　〇〇〇〇</button>
+					</div>
+				</div>
+			</aside>
+			<!--  1200ピクセル以上で非表示-->
+			<aside id="sub" class="col-2 d-xl-none">
+				<div class="box overflow-auto list-group-flush">
+					<div class="list-group-item twitter-button">
+						<button type="button" class="btn btn-outline-primary btn-lg rounded-pill"><i class="fa-brands fa-twitter"></i></button>
+					</div>
+					<div class="list-group-item sub-buttons btn-group-vertical">
+						<button type="button" class="btn btn-outline-secondary btn-lg rounded-pill text-nowrap"><i class="fa-sharp fa-solid fa-house"></i></button>
+						<button type="button" class="btn btn-outline-secondary btn-lg rounded-pill text-nowrap"><i class="fa-sharp fa-solid fa-bars"></i></button>
+						<button type="button" class="btn btn-outline-secondary btn-lg rounded-pill text-nowrap"><i class="fa-sharp fa-solid fa-bell"></i></button>
+						<button type="button" class="btn btn-outline-secondary btn-lg rounded-pill text-nowrap"><i class="fa-sharp fa-solid fa-envelope"></i></button>
+						<button type="button" class="btn btn-outline-secondary btn-lg rounded-pill text-nowrap"><i class="fa-sharp fa-solid fa-bookmark"></i></button>
+						<button type="button" class="btn btn-outline-secondary btn-lg rounded-pill text-nowrap"><i class="fa-sharp fa-solid fa-table-list"></i></button>
+						<button type="button" class="btn btn-outline-secondary btn-lg rounded-pill text-nowrap"><i class="fa-sharp fa-solid fa-user"></i></button>
+						<button type="button" class="btn btn-outline-secondary btn-lg rounded-pill text-nowrap"><i class="fa-sharp fa-solid fa-plus"></i></button>
+					</div>
+					<div class="list-group-item btn-group-vertical ">
+						<div class="test-margin1">
+							<button type="button" class="btn btn-primary btn-lg rounded-pill text-nowrap"><i class="fa-solid fa-feather"></i></button>
+						</div>
+						<div class="test-margin2">
+							<button type="button" class="btn btn-outline-secondary btn-lg rounded-pill text-nowrap"><i class="fa-solid fa-person"></i></button>
+						</div>
+					</div>
+				</div>
+			</aside>
+			<!--  992ピクセル以上で表示-->
+			<div class="col-6 d-none d-lg-block">
+				<main id="main">
+					<header id="header">
+						<h3 class="text-muted">Home</h3>
+					</header>
+					<img th:src="@{/img/fairy-tale-g398f3314e_1920.png}" alt="代替テキスト" class="img-fluid">
+					<img th:src="@{/img/fairy-tale-g398f3314e_1920.png}" alt="代替テキスト" class="img-fluid">
+					<img th:src="@{/img/fairy-tale-g398f3314e_1920.png}" alt="代替テキスト" class="img-fluid">
+					<img th:src="@{/img/fairy-tale-g398f3314e_1920.png}" alt="代替テキスト" class="img-fluid">
+					<img th:src="@{/img/fairy-tale-g398f3314e_1920.png}" alt="代替テキスト" class="img-fluid">
+					<img th:src="@{/img/fairy-tale-g398f3314e_1920.png}" alt="代替テキスト" class="img-fluid">
+					<img th:src="@{/img/fairy-tale-g398f3314e_1920.png}" alt="代替テキスト" class="img-fluid">
+					<img th:src="@{/img/fairy-tale-g398f3314e_1920.png}" alt="代替テキスト" class="img-fluid">
+					<img th:src="@{/img/fairy-tale-g398f3314e_1920.png}" alt="代替テキスト" class="img-fluid">
+					<img th:src="@{/img/fairy-tale-g398f3314e_1920.png}" alt="代替テキスト" class="img-fluid">
+					<img th:src="@{/img/fairy-tale-g398f3314e_1920.png}" alt="代替テキスト" class="img-fluid">
+					<img th:src="@{/img/fairy-tale-g398f3314e_1920.png}" alt="代替テキスト" class="img-fluid">
+				</main>
+			</div>
+			<!--  992ピクセル以上で非表示-->
+			<div class="col d-lg-none">
+				<main id="main">
+					<header id="header">
+						<h3 class="text-muted">Home</h3>
+					</header>
+					<img th:src="@{/img/fairy-tale-g398f3314e_1920.png}" alt="代替テキスト" class="img-fluid">
+					<img th:src="@{/img/fairy-tale-g398f3314e_1920.png}" alt="代替テキスト" class="img-fluid">
+					<img th:src="@{/img/fairy-tale-g398f3314e_1920.png}" alt="代替テキスト" class="img-fluid">
+					<img th:src="@{/img/fairy-tale-g398f3314e_1920.png}" alt="代替テキスト" class="img-fluid">
+					<img th:src="@{/img/fairy-tale-g398f3314e_1920.png}" alt="代替テキスト" class="img-fluid">
+					<img th:src="@{/img/fairy-tale-g398f3314e_1920.png}" alt="代替テキスト" class="img-fluid">
+					<img th:src="@{/img/fairy-tale-g398f3314e_1920.png}" alt="代替テキスト" class="img-fluid">
+					<img th:src="@{/img/fairy-tale-g398f3314e_1920.png}" alt="代替テキスト" class="img-fluid">
+					<img th:src="@{/img/fairy-tale-g398f3314e_1920.png}" alt="代替テキスト" class="img-fluid">
+					<img th:src="@{/img/fairy-tale-g398f3314e_1920.png}" alt="代替テキスト" class="img-fluid">
+					<img th:src="@{/img/fairy-tale-g398f3314e_1920.png}" alt="代替テキスト" class="img-fluid">
+					<img th:src="@{/img/fairy-tale-g398f3314e_1920.png}" alt="代替テキスト" class="img-fluid">
+				</main>
+			</div>
+			<div class="col d-none d-lg-block">
+				<div id="search">
+					<div class="search-box">
+						<button type="submit">
+							<i class="fas fa-search fa-fw"></i>
+						</button>
+						<input type="text" placeholder="Search Twitter">
+					</div>
+				</div>
+				<img th:src="@{/img/11114_color.png}" alt="代替テキスト" class="img-fluid">
+				<img th:src="@{/img/11114_color.png}" alt="代替テキスト" class="img-fluid">
+				<img th:src="@{/img/11114_color.png}" alt="代替テキスト" class="img-fluid">
+				<img th:src="@{/img/11114_color.png}" alt="代替テキスト" class="img-fluid">
+				<img th:src="@{/img/11114_color.png}" alt="代替テキスト" class="img-fluid">
+				<div class="sidebar_fixed">
+					<div class="row">
+						<div class="col">
+							<div class="pt-4 border text-center bg-warning">
+								<img th:src="@{/img/15406_color.png}" alt="代替テキスト" class="img-fluid">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/twitter.js"></script>
+</body>
+</html>

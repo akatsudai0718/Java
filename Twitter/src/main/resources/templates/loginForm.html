@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>ログイン画面</title>
+	<script src="webjars/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="webjars/bootstrap/5.0.2/css/bootstrap.min.css" />
+	<script src="webjars/bootstrap/5.0.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div id="login">
+		<h3 class="text-center text-white pt-5">ログイン画面</h3>
+		<div class="container">
+			<div id="login-row" class="row justify-content-center align-items-center">
+				<div id="login-column" class="col-md-6">
+					<div id="login-box" class="col-md-12">
+						<form method="POST" id="login-form" class="form" th:action="@{/login}">
+							<h3 class="text-center text-info">Login</h3>
+							<div th:if="${param.error}">
+								<p class="text-danger">IDまたはパスワードが間違っています</p>
+							</div>
+							<div class="form-group">
+								<label for="username" class="text-info">Username:</label><br>
+								<input type="text" name="user_name" id="user_name" class="form-control" required>
+							</div>
+							<div class="form-group">
+								<label for="password" class="text-info">Password:</label><br>
+								<input type="password" name="password" id="password" class="form-control" required>
+							</div>
+							</br>
+							<div class="form-group">
+								<input type="submit" name="submit" class="btn btn-info btn-md" value="ログイン">
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>

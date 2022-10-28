@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="spring boot exsamplw (todo)">
+	<title>Twitter</title>
+	<script src="webjars/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/twitter.css" />
+	<link rel="stylesheet" href="webjars/bootstrap/5.0.2/css/bootstrap.min.css" />
+	<script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+      integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+      crossorigin="anonymous"
+    ></script>
+	<script src="webjars/bootstrap/5.0.2/js/bootstrap.min.js"></script>
+	<script src="https://kit.fontawesome.com/1aeac29aff.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<!-- Tweetの時のポップアップ中身始め -->
+	<div class="modal fade" id="tweetModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Tweet</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="mb-3">
+							<textarea cols="40" rows="10" class="form-control" placeholder="What's happening?" id="tweet-content"></textarea>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="tweet">Tweet</button>
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- Tweetの時のポップアップ中身終わり -->
+<!-- Replyの時のポップアップ中身始め -->
+	<div class="modal fade" id="replyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Reply</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="mb-3">
+						<label>
+							<h6 id="reply-from-username" class="dark-from">リプライされる人の名前:</h6>
+							<p id="reply-from-updatetime" class="thin-from">createtime</p>
+						</label>
+						<p id="reply-from-content">content</p>
+					</div>
+					<form>
+						<input type="hidden" id="reply-tweet-id" value="">
+						<div class="mb-3">
+							<textarea cols="40" rows="10" class="form-control" placeholder="Tweet your reply" id="reply-content"></textarea>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="reply">Reply</button>
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- Replyの時のポップアップ中身終わり -->
+<!-- Retweetの時のポップアップ中身始め -->
+	<div class="modal fade" id="retweetModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Retweet</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="mb-3">
+						<label>
+							<h6 id="retweet-from-username" class="dark-from">リツイートされる人の名前:</h6>
+							<p id="retweet-from-updatetime" class="thin-from">createtime</p>
+						</label>
+						<p id="retweet-from-content">content</p>
+					</div>
+					<form>
+						<input type="hidden" id="retweet-tweet-id" value="">
+						<div class="mb-3">
+							<textarea cols="40" rows="10" class="form-control" placeholder="Tweet your reply" id="retweet-content"></textarea>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="retweet">Retweet</button>
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- Retweetの時のポップアップ中身終わり -->
+	<div id="container-fluid">
+		<div class="row">
+			<!--  1200ピクセル以上で表示-->
+			<aside id="left-sub" class="col-3 d-none d-xl-block">
+				<div class="box">
+					<div class="box-top">
+						<div class="twitter-button">
+							<button type="button" class="btn btn-outline-primary btn-lg rounded-pill"><i class="fa-brands fa-twitter"></i></button>
+						</div>
+						<div class="sub-buttons btn-group-vertical">
+							<button type="button" class="btn btn-outline-secondary btn-lg rounded-pill text-nowrap"><i class="fa-sharp fa-solid fa-house"></i>　Home</button>
+							<button type="button" class="btn btn-outline-secondary btn-lg rounded-pill text-nowrap"><i class="fa-sharp fa-solid fa-bars"></i>　Explore</button>
+							<button type="button" class="btn btn-outline-secondary btn-lg rounded-pill text-nowrap"><i class="fa-sharp fa-solid fa-bell"></i>　Notifications</button>
+							<button type="button" class="btn btn-outline-secondary btn-lg rounded-pill text-nowrap"><i class="fa-sharp fa-solid fa-envelope"></i>　Messages</button>
+							<button type="button" class="btn btn-outline-secondary btn-lg rounded-pill text-nowrap"><i class="fa-sharp fa-solid fa-bookmark"></i>　Bookmarks</button>
+							<button type="button" class="btn btn-outline-secondary btn-lg rounded-pill text-nowrap"><i class="fa-sharp fa-solid fa-table-list"></i>　Lists</button>
+							<form action="#" th:action="@{/profile}" method="GET">
+								<button type="submit" class="profile_button btn btn-outline-secondary btn-lg rounded-pill text-nowrap"><i class="fa-sharp fa-solid fa-user"></i>　Profile</button>
+							</form>
+							<button type="button" class="btn btn-outline-secondary btn-lg rounded-pill text-nowrap"><i class="fa-sharp fa-solid fa-plus"></i>　More</button>
+						</div>
+						<div class="d-grid">
+							<button type="button" class="tweet_button btn btn-primary btn-lg rounded-pill text-nowrap" data-bs-toggle="modal" data-bs-target="#tweetModal" th:data-bs-whatever="Tweet">Tweet</button>
+						</div>
+					</div>
+					<div class="box-bottom d-grid">
+						<button type="button" class="btn btn-outline-secondary btn-lg rounded-pill text-nowrap"><i class="fa-solid fa-person"></i><span th:text="'　' + ${#httpServletRequest.remoteUser}"></span></button>
+					</div>
+				</div>
+			</aside>
+			<!--  1200ピクセル以上で非表示 -->
+			<aside id="left-sub" class="col-2 d-xl-none">
+				<div class="box">
+					<div class="box-top-small">
+						<div class="twitter-button">
+							<button type="button" class="btn btn-outline-primary btn-lg rounded-pill"><i class="fa-brands fa-twitter"></i></button>
+						</div>
+						<div class="sub-buttons btn-group-vertical">
+							<button type="button" class="btn btn-outline-secondary btn-lg rounded-pill text-nowrap"><i class="fa-sharp fa-solid fa-house"></i></button>
+							<button type="button" class="btn btn-outline-secondary btn-lg rounded-pill text-nowrap"><i class="fa-sharp fa-solid fa-bars"></i></button>
+							<button type="button" class="btn btn-outline-secondary btn-lg rounded-pill text-nowrap"><i class="fa-sharp fa-solid fa-bell"></i></button>
+							<button type="button" class="btn btn-outline-secondary btn-lg rounded-pill text-nowrap"><i class="fa-sharp fa-solid fa-envelope"></i></button>
+							<button type="button" class="btn btn-outline-secondary btn-lg rounded-pill text-nowrap"><i class="fa-sharp fa-solid fa-bookmark"></i></button>
+							<button type="button" class="btn btn-outline-secondary btn-lg rounded-pill text-nowrap"><i class="fa-sharp fa-solid fa-table-list"></i></button>
+							<button type="button" class="btn btn-outline-secondary btn-lg rounded-pill text-nowrap"><i class="fa-sharp fa-solid fa-user"></i></button>
+							<button type="button" class="btn btn-outline-secondary btn-lg rounded-pill text-nowrap"><i class="fa-sharp fa-solid fa-plus"></i></button>
+						</div>
+						<div>
+							<button type="button" class="tweet_button btn btn-primary btn-lg rounded-pill text-nowrap" data-bs-toggle="modal" data-bs-target="#tweetModal" th:data-bs-whatever="Tweet"><i class="fa-solid fa-feather"></i></button>
+						</div>
+					</div>
+					<div class="box-bottom">
+						<button type="button" class="btn btn-outline-secondary btn-lg rounded-pill text-nowrap"><i class="fa-solid fa-person"></i></button>
+					</div>
+				</div>
+			</aside>
+			<!--  992ピクセル以上で表示-->
+			<div class="col-6 d-none d-lg-block">
+				<div id="main">
+					<div class="box-big">
+						<div>
+							<h3>
+								<span class="header">Home</span>
+							</h3>
+						</div>
+						<table class="table table-main">
+							<thead class="table-head">
+								<tr>
+									<th colspan="2">Tweet</th>
+								</tr>
+							</thead>
+							<tbody th:each="tweet : ${tweets}">
+								<tr>
+									<td class="fw-bold" th:text="${tweet.account_name}"></td>
+									<td th:id="'updatetime-' + ${tweet.id}" class="table-timestamp" th:text="${#dates.format(tweet.update_at, 'yyyy-MM-dd HH:mm:ss')}">2022-09-27 10:10:10></td>
+								</tr>
+								<tr>
+									<td colspan="2" th:id="'content-' + ${tweet.id}" th:text="${tweet.content}"></td>
+								</tr>
+								<tr class="table-ul">
+									<td colspan="2">
+										<div>
+											<li>
+												<button th:id="'reply-' + ${tweet.id}" type="button" class="reply_button btn btn-outline-primary btn-sm rounded-pill text-nowrap" data-bs-toggle="modal" data-bs-target="#replyModal" th:data-bs-whatever="Reply"><i class="fa-regular fa-comment-dots"></i></button>
+												<span th:text="${tweet.number_of_reply}"></span>
+											</li>
+											<li>
+												<a tabindex="0" role="button" th:id="'retweet-' + ${tweet.id}" class="btn btn-outline-success btn-sm rounded-pill text-nowrap" th:class="${tweet.is_retweet} ? 'btn btn-success btn-sm rounded-pill text-nowrap' :'btn btn-outline-success btn-sm rounded-pill text-nowrap'" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-html="true" th:data-bs-content="${tweet.is_retweet} ? '<a tabindex=\'0\' role=\'button\' class=\'retweet_button btn btn-light\'><i class=\'fa-solid fa-retweet\'></i>Undo Retweet</a><br><a tabindex=\'0\' role=\'button\' class=\'quote_tweet_button btn btn-light text-nowrap\' data-bs-toggle=\'modal\' data-bs-target=\'#retweetModal\' data-bs-whatever=\'Retweet\'><i class=\'fa-solid fa-pen\'></i>Quote Tweet</a>' :'<a tabindex=\'0\' role=\'button\' class=\'retweet_button btn btn-light\'><i class=\'fa-solid fa-retweet\'></i>Retweet</a><br><a tabindex=\'0\' role=\'button\' class=\'quote_tweet_button btn btn-light text-nowrap\' data-bs-toggle=\'modal\' data-bs-target=\'#retweetModal\' data-bs-whatever=\'Retweet\'><i class=\'fa-solid fa-pen\'></i>Quote Tweet</a>'"><i class="fa-solid fa-retweet"></i></a>
+												<span th:text="${tweet.number_of_retweet}"></span>
+											</li>
+											<li>
+												<button th:id="'good-' + ${tweet.id}" type="button" class="good_button btn btn-sm rounded-pill text-nowrap" th:class="${tweet.is_good} ? 'good_button btn btn-danger btn-sm rounded-pill text-nowrap' :'good_button btn btn-outline-danger btn-sm rounded-pill text-nowrap'"><i class="fa-regular fa-heart"></i></button>
+												<span th:text="${tweet.number_of_good}"></span>
+											</li>
+											<li>
+												<button th:id="'share-' + ${tweet.id}" type="button" class="delete_button btn btn-outline-info btn-sm rounded-pill text-nowrap"><i class="fa-solid fa-arrow-up-from-bracket"></i></button>
+												<span></span>
+											</li>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<!--  992ピクセル以上で非表示-->
+			<div class="col d-lg-none">
+				<div id="main">
+					<div class="box-small">
+						<div>
+							<h3>
+								<span class="header">Home</span>
+							</h3>
+						</div>
+						<table class="table table-main">
+							<thead class="table-head">
+								<tr>
+									<th colspan="2">Tweet</th>
+								</tr>
+							</thead>
+							<tbody th:each="tweet : ${tweets}">
+								<tr>
+									<td class="fw-bold" th:text="${tweet.account_name}"></td>
+									<td class="table-timestamp" th:text="${#dates.format(tweet.update_at, 'yyyy-MM-dd HH:mm:ss')}">2022-09-27 10:10:10></td>
+								</tr>
+								<tr>
+									<td colspan="2" th:text="${tweet.content}"></td>
+								</tr>
+								<tr class="table-ul">
+									<td colspan="2">
+										<div>
+											<li>
+												<button th:id="'reply-' + ${tweet.id}" type="button" class="btn btn-outline-primary btn-sm rounded-pill text-nowrap"><i class="fa-regular fa-comment-dots"></i></button>
+												<span th:text="${tweet.number_of_reply}"></span>
+											</li>
+											<li>
+												<button th:id="'retweet-' + ${tweet.id}" type="button" class="btn btn-outline-success btn-sm rounded-pill text-nowrap"><i class="fa-solid fa-retweet"></i></button>
+												<span th:text="${tweet.number_of_retweet}"></span>
+											</li>
+											<li>
+												<button th:id="'good-' + ${tweet.id}" type="button" class="good_button btn btn-outline-danger btn-sm rounded-pill text-nowrap"><i th:class="${tweet.is_good} ? 'fa-solid fa-heart' :'fa-regular fa-heart'"></i></button>
+												<span th:text="${tweet.number_of_good}"></span>
+											</li>
+											<li>
+												<button th:id="'share-' + ${tweet.id}" type="button" class="btn btn-outline-info btn-sm rounded-pill text-nowrap"><i class="fa-solid fa-arrow-up-from-bracket"></i></button>
+												<span></span>
+											</li>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+<!-- 						<img th:src="@{/img/fairy-tale-g398f3314e_1920.png}" alt="代替テキスト" class="img-fluid"> -->
+<!-- 						<img th:src="@{/img/fairy-tale-g398f3314e_1920.png}" alt="代替テキスト" class="img-fluid"> -->
+<!-- 						<img th:src="@{/img/fairy-tale-g398f3314e_1920.png}" alt="代替テキスト" class="img-fluid"> -->
+<!-- 						<img th:src="@{/img/fairy-tale-g398f3314e_1920.png}" alt="代替テキスト" class="img-fluid"> -->
+<!-- 						<img th:src="@{/img/fairy-tale-g398f3314e_1920.png}" alt="代替テキスト" class="img-fluid"> -->
+<!-- 						<img th:src="@{/img/fairy-tale-g398f3314e_1920.png}" alt="代替テキスト" class="img-fluid"> -->
+<!-- 						<img th:src="@{/img/fairy-tale-g398f3314e_1920.png}" alt="代替テキスト" class="img-fluid"> -->
+<!-- 						<img th:src="@{/img/fairy-tale-g398f3314e_1920.png}" alt="代替テキスト" class="img-fluid"> -->
+<!-- 						<img th:src="@{/img/fairy-tale-g398f3314e_1920.png}" alt="代替テキスト" class="img-fluid"> -->
+<!-- 						<img th:src="@{/img/fairy-tale-g398f3314e_1920.png}" alt="代替テキスト" class="img-fluid"> -->
+<!-- 						<img th:src="@{/img/fairy-tale-g398f3314e_1920.png}" alt="代替テキスト" class="img-fluid"> -->
+<!-- 						<img th:src="@{/img/fairy-tale-g398f3314e_1920.png}" alt="代替テキスト" class="img-fluid"> -->
+					</div>
+				</div>
+			</div>
+			<aside id="right-sub" class="col d-none d-lg-block">
+				<div class="box">
+					<div class="search-box">
+						<button type="submit">
+							<i class="fas fa-search fa-fw"></i>
+						</button>
+						<input type="text" placeholder="Search Twitter">
+					</div>
+					<img th:src="@{/img/11114_color.png}" alt="代替テキスト" class="img-fluid">
+					<img th:src="@{/img/11114_color.png}" alt="代替テキスト" class="img-fluid">
+					<img th:src="@{/img/11114_color.png}" alt="代替テキスト" class="img-fluid">
+					<img th:src="@{/img/11114_color.png}" alt="代替テキスト" class="img-fluid">
+					<img th:src="@{/img/11114_color.png}" alt="代替テキスト" class="img-fluid">
+									</div>
+
+					<div class="sidebar_fixed">
+						<div class="row">
+							<div class="col">
+								<div class="pt-4 border text-center bg-warning">
+									<img th:src="@{/img/15406_color.png}" alt="代替テキスト" class="img-fluid">
+								</div>
+							</div>
+						</div>
+					</div>
+			</aside>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/twitter.js"></script>
+</body>
+</html>
