@@ -1,0 +1,34 @@
+@charset "UTF-8";
+
+input[type="text"]{
+	width:70%;
+	border-radius: 5px;
+	padding: 10px;
+}
+input[type="submit"].search{
+	border-radius: 5px;
+	padding: 5px;
+	margin-top: 10px;
+	background-color:#99CCCC;
+}
+
+input[type="submit"].list{
+	border-radius: 5px;
+	padding: 5px;
+	margin-top: 10px;
+	background-color: #008BBB;
+	color:#FFFFFF
+}
+
+table{
+	width: 100%;
+	margin-top: 10px;
+	border-collapse: collapse;
+}
+table th, table td {
+	border: 1px solid #ddd;
+	padding: 6px;
+}
+table th {
+	background-color: #6699FF;
+}

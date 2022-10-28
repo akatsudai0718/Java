@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+body {
+    text-align: center;
+}
+
+p.error {
+    color: #ff0000;
+}
+
+p.done {
+    color: #008000;
+}
+
+.page_title {
+    font-size:30px;
+}
+
+textarea {
+    width:400px;
+    height:100px;
+}
+
+td,th {
+    border: solid 1px;
+    padding: 10px;
+}
+
+.button_in_table {
+    border: none;
+}
+
+table {
+    word-break: break-word;
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse:  collapse;
+}
