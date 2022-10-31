@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>ユーザー一覧</title>
+</head>
+<body>
+
+	<h2>ユーザー一覧(top.html)</h2>
+
+	<div th:if="!${users.size()}">
+		<p>登録されているユーザーはいません</p>
+	</div>
+
+	<a th:href="@{/users/register}"><!-- URL「/users/register」生成 -->
+		<button>新しいユーザーを登録</button>
+	</a>
+
+	<table th:if="${users.size()}" border=1>
+	<!-- DB内のデータがtrue = 0以外の時 -->
+
+		<thead>
+			<tr>
+				<th>ID(PRIMARY KEY)</th>
+				<th>名前</th>
+				<th>年齢</th>
+				<th></th>
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr th:each="users:${users}" th:object="${users}">
+				<td th:text="*{id}"></td>
+				<td th:text="*{name}"></td>
+				<td th:text="*{age}"></td>
+				<td><a th:href="@{/users/details/id={id}(id=*{id})}"><button>詳細</button></a></td>
+				<td><a th:href="@{/users/change/id={id}(id=*{id})}"><button>変更</button></a></td>
+				<td>
+					<form th:method="post" th:action="@{/users/delete/id={id}(id=*{id})}">
+						<button>削除</button>
+					</form>
+				</td>
+			</tr>
+		</tbody>
+
+	</table>
+
+</body>

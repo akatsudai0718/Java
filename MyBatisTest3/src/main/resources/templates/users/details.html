@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>ユーザー詳細</title>
+</head>
+
+<body>
+
+	<h2>ユーザー詳細表示(details.html)</h2>
+	<div th:object="${users}">
+		<table border="1">
+			<tr>
+				<th>ID</th>
+				<th>名前</th>
+				<th>年齢</th>
+			</tr>
+			<tr>
+				<td th:text="*{id}"></td>
+				<td th:text="*{name}"></td>
+				<td th:text="*{age}"></td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
